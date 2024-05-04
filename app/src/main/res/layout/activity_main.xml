@@ -13,12 +13,11 @@
         android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="16:9"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/backgrounds/scenic[7]" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/nameTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -31,7 +30,7 @@
         app:layout_constraintTop_toBottomOf="@+id/headerImageView"
         tools:text="Morty Smith" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/aliveTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -61,7 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/nameTextView" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/originLabelTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -73,7 +72,7 @@
         app:layout_constraintTop_toBottomOf="@+id/divider"
         android:text="Origin" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/originTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -84,7 +83,7 @@
         app:layout_constraintTop_toBottomOf="@+id/originLabelTextView"
         tools:text="Earth" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/speciesLabelTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -96,7 +95,7 @@
         app:layout_constraintTop_toBottomOf="@+id/originTextView"
         android:text="Species" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/speciesTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
