@@ -1,4 +1,4 @@
-package com.sajon.dev.rickandmorty
+package com.sajon.dev.rickandmorty.network.response
 
 data class GetCharacterByIdResponse(
     val created: String,

@@ -1,5 +1,6 @@
-package com.sajon.dev.rickandmorty
+package com.sajon.dev.rickandmorty.network
 
+import com.sajon.dev.rickandmorty.network.response.GetCharacterByIdResponse
 import retrofit2.Response
 
 class ApiClient(private val rickAndMortyService: RickAndMortyService) {

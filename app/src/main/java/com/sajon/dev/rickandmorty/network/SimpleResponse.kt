@@ -1,4 +1,4 @@
-package com.sajon.dev.rickandmorty
+package com.sajon.dev.rickandmorty.network
 
 import retrofit2.Response
 

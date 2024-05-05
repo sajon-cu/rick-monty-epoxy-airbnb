@@ -1,4 +1,4 @@
-package com.sajon.dev.rickandmorty
+package com.sajon.dev.rickandmorty.network
 
 import okhttp3.ConnectionPool
 import okhttp3.OkHttpClient

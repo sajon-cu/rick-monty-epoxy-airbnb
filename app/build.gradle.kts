@@ -1,6 +1,11 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+}
+
+kapt {
+    correctErrorTypes = true
 }
 
 android {
@@ -65,4 +70,9 @@ dependencies {
     // Skip this if you don't want to use integration libraries or configure Glide.
     annotationProcessor("androidx.annotation:annotation:1.7.1")
     annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
+
+    // Epoxy Airbnb
+    val epoxyVersion = "5.1.1"
+    implementation ("com.airbnb.android:epoxy:$epoxyVersion")
+    annotationProcessor("com.airbnb.android:epoxy-processor:$epoxyVersion")
 }

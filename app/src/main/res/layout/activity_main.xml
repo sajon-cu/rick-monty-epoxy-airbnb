@@ -6,104 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/headerImageView"
+    <com.airbnb.epoxy.EpoxyRecyclerView
+        android:id="@+id/epoxyRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintDimensionRatio="16:9"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/backgrounds/scenic[7]" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/nameTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:textColor="?colorOnBackground"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/genderImageView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/headerImageView"
-        tools:text="Morty Smith" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/aliveTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="?colorOnBackground"
-        android:textSize="14sp"
-        android:textStyle="italic"
-        app:layout_constraintStart_toStartOf="@+id/nameTextView"
-        app:layout_constraintTop_toBottomOf="@+id/nameTextView"
-        tools:text="Alive" />
-
-    <View
-        android:id="@+id/divider"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginTop="8dp"
-        android:background="?colorPrimary"
-        app:layout_constraintTop_toBottomOf="@+id/aliveTextView"
-        app:layout_constraintStart_toStartOf="@+id/aliveTextView"
-        app:layout_constraintEnd_toEndOf="@+id/genderImageView"/>
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/genderImageView"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_female_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/nameTextView" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/originLabelTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:textColor="?colorOnBackground"
-        android:textSize="24sp"
-        android:textStyle="italic"
-        app:layout_constraintStart_toStartOf="@+id/divider"
-        app:layout_constraintTop_toBottomOf="@+id/divider"
-        android:text="Origin" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/originTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="?colorOnBackground"
-        android:textSize="18sp"
-        android:textStyle="italic"
-        app:layout_constraintStart_toStartOf="@+id/nameTextView"
-        app:layout_constraintTop_toBottomOf="@+id/originLabelTextView"
-        tools:text="Earth" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/speciesLabelTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:textColor="?colorOnBackground"
-        android:textSize="24sp"
-        android:textStyle="italic"
-        app:layout_constraintStart_toStartOf="@+id/originTextView"
-        app:layout_constraintTop_toBottomOf="@+id/originTextView"
-        android:text="Species" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/speciesTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="?colorOnBackground"
-        android:textSize="18sp"
-        android:textStyle="italic"
-        app:layout_constraintStart_toStartOf="@+id/speciesLabelTextView"
-        app:layout_constraintTop_toBottomOf="@+id/speciesLabelTextView"
-        tools:text="Human" />
-
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="24dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 </androidx.constraintlayout.widget.ConstraintLayout>
