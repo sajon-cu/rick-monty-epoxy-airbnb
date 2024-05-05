@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.squareup.moshi.Moshi
 import com.squareup.picasso.Picasso
@@ -27,6 +28,10 @@ import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
 class MainActivity : AppCompatActivity() {
+    private val sharedViewModel: SharedViewModel by lazy {
+        ViewModelProvider(this)[SharedViewModel::class.java]
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -36,112 +41,28 @@ class MainActivity : AppCompatActivity() {
         val originTextView = findViewById<AppCompatTextView>(R.id.originTextView)
         val speciesTextView = findViewById<AppCompatTextView>(R.id.speciesTextView)
         val headerImageView = findViewById<AppCompatImageView>(R.id.headerImageView)
+        val genderImageView = findViewById<AppCompatImageView>(R.id.genderImageView)
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://rickandmortyapi.com/api/")
-            .client(provideHttpClient())
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-        val rickAndMortyService = retrofit.create(RickAndMortyService::class.java)
-        rickAndMortyService.getCharacterById(10).enqueue(object : Callback<GetCharacterByIdResponse> {
-            override fun onResponse(call: Call<GetCharacterByIdResponse>, response: Response<GetCharacterByIdResponse>) {
-                Log.d("MainActivity", "onResponse: ${response.toString()}")
-                if(!response.isSuccessful) {
-                    Toast.makeText(this@MainActivity, "Unsuccessful network call!!", Toast.LENGTH_LONG).show()
-                    return
-                }
-
-                trustAllCertificates()
-
-                val body= response.body()!!
-                Log.d("MainActivity", "onResponse: $body")
-                //Picasso.get().load(body.image).into(headerImageView)
-                Glide.with(headerImageView).load(body.image).into(headerImageView)
-                nameTextView.text = body.name
-                originTextView.text = body.origin.name
-                speciesTextView.text = body.species
+        sharedViewModel.refreshCharacter(23)
+        sharedViewModel.characterByIdResponse.observe(this) { response ->
+            if(response == null) {
+                Toast.makeText(this@MainActivity, "Unsuccessful network call!!", Toast.LENGTH_LONG).show()
+                return@observe
             }
 
-            override fun onFailure(call: Call<GetCharacterByIdResponse>, t: Throwable) {
-                Log.d("MainActivity", "onResponse: ${t.message}}")
+
+            Glide.with(headerImageView).load(response.image).into(headerImageView)
+            nameTextView.text = response.name
+            originTextView.text = response.origin.name
+            speciesTextView.text = response.species
+            aliveText.text = response.status
+
+            if(response.gender.equals("male", true)) {
+                genderImageView.setImageResource(R.drawable.ic_male_24)
+            } else {
+                genderImageView.setImageResource(R.drawable.ic_female_24)
             }
-        })
-    }
 
-    class TrustAllCertificates : X509TrustManager {
-        override fun checkClientTrusted(chain: Array<out X509Certificate>?, authType: String?) {
-        }
-
-        override fun checkServerTrusted(chain: Array<out X509Certificate>?, authType: String?) {
-        }
-
-        override fun getAcceptedIssuers(): Array<X509Certificate> {
-            return emptyArray()
-        }
-    }
-
-    // Install the trust manager to trust all certificates
-    fun trustAllCertificates() {
-        try {
-            val trustAllCerts = arrayOf<TrustManager>(TrustAllCertificates())
-            val sslContext = SSLContext.getInstance("SSL")
-            sslContext.init(null, trustAllCerts, java.security.SecureRandom())
-            HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.socketFactory)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-
-    fun provideHttpClient(): OkHttpClient {
-        val pool = ConnectionPool()
-
-        // Create a trust manager that does not validate certificate chains
-        try {
-            val trustAllCerts: Array<TrustManager> = arrayOf(
-                object : X509TrustManager {
-                    @Throws(CertificateException::class)
-                    override fun checkClientTrusted(
-                        chain: Array<X509Certificate?>?,
-                        authType: String?
-                    ) {
-                    }
-
-                    @Throws(CertificateException::class)
-                    override fun checkServerTrusted(
-                        chain: Array<X509Certificate?>?,
-                        authType: String?
-                    ) {
-                    }
-
-                    override fun getAcceptedIssuers(): Array<X509Certificate> {
-                        return arrayOf()
-                    }
-                }
-            )
-
-            // Install the all-trusting trust manager
-            val sslContext: SSLContext = SSLContext.getInstance("SSL")
-            sslContext.init(null, trustAllCerts, SecureRandom())
-
-            // Create an ssl socket factory with our all-trusting manager
-            val sslSocketFactory: SSLSocketFactory = sslContext.socketFactory
-
-            return OkHttpClient.Builder()
-                .sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
-                .hostnameVerifier { _, _ -> true }
-                .readTimeout(30L, TimeUnit.SECONDS)
-                .writeTimeout(30L, TimeUnit.SECONDS)
-                .connectionPool(pool)
-                // .addInterceptor(httpLoginInterceptor)
-                .build()
-        } catch(exception: Exception) {
-            return OkHttpClient.Builder()
-                .readTimeout(30L, TimeUnit.SECONDS)
-                .writeTimeout(30L, TimeUnit.SECONDS)
-                .connectionPool(pool)
-                // .addInterceptor(httpLoginInterceptor)
-                .build()
         }
     }
 }
