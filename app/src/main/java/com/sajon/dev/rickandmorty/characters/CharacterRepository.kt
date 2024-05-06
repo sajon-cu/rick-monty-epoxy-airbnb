@@ -1,7 +1,6 @@
 package com.sajon.dev.rickandmorty.characters
 
 import com.sajon.dev.rickandmorty.network.NetworkLayer
-import com.sajon.dev.rickandmorty.network.response.GetCharacterByIdResponse
 import com.sajon.dev.rickandmorty.network.response.GetCharacterPageResponse
 
 class CharacterRepository() {

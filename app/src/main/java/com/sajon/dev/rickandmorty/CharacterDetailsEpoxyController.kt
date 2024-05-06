@@ -18,7 +18,7 @@ class CharacterDetailsEpoxyController : EpoxyController() {
             }
         }
 
-    var character: Character? = null
+    var character: Character ? = null
         set(value) {
             field = value
             if(field != null) {

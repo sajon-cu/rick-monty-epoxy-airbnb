@@ -2,11 +2,17 @@ package com.sajon.dev.rickandmorty.domain.mappers
 
 import com.sajon.dev.rickandmorty.domain.models.Character
 import com.sajon.dev.rickandmorty.network.response.GetCharacterByIdResponse
+import com.sajon.dev.rickandmorty.network.response.GetEpisodeByIdResponse
 
 object CharacterMapper {
-    fun buildFrom(response: GetCharacterByIdResponse): Character {
+    fun buildFrom(
+        response: GetCharacterByIdResponse,
+        episodes: List<GetEpisodeByIdResponse>
+    ): Character {
         return Character(
-            episode = emptyList(), // TODO
+            episode = episodes.map {
+                EpisodeMapper.buildForm(it)
+            },
             gender = response.gender,
             id = response.id,
             image = response.image,
