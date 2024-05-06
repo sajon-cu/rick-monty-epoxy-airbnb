@@ -10,7 +10,7 @@ object CharacterMapper {
         episodes: List<GetEpisodeByIdResponse>
     ): Character {
         return Character(
-            episode = episodes.map {
+            episodeList = episodes.map {
                 EpisodeMapper.buildForm(it)
             },
             gender = response.gender,

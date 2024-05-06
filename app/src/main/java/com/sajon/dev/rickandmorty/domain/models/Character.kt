@@ -1,7 +1,7 @@
 package com.sajon.dev.rickandmorty.domain.models
 
 data class Character(
-    val episode: List<Episode> = emptyList(),
+    val episodeList: List<Episode> = emptyList(),
     val gender: String,
     val id: Int,
     val image: String,
