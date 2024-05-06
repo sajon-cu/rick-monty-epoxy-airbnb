@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.airbnb.epoxy.EpoxyRecyclerView
 
-class MainActivity : AppCompatActivity() {
+class CharacterDetailActivity : AppCompatActivity() {
     private val sharedViewModel: SharedViewModel by lazy {
         ViewModelProvider(this)[SharedViewModel::class.java]
     }
@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_character_detail)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
     private fun observeViewModel() {
         sharedViewModel.characterByIdResponse.observe(this) { character ->
             if(character == null) {
-                Toast.makeText(this@MainActivity, "Unsuccessful network call!!", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@CharacterDetailActivity, "Unsuccessful network call!!", Toast.LENGTH_LONG).show()
                 return@observe
             }
 
@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         private const val INTENT_EXTRA_CHARACTER_ID = "character_id_extra"
 
         fun getIntent(context: Context, characterId: Int): Intent {
-            return Intent(context, MainActivity::class.java).apply {
+            return Intent(context, CharacterDetailActivity::class.java).apply {
                 putExtra(INTENT_EXTRA_CHARACTER_ID, characterId)
             }
         }

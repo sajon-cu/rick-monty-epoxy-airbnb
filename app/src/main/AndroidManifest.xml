@@ -10,18 +10,24 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:usesCleartextTraffic="true"
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RickAndMorty"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
-        </activity>
 
-        <activity android:name=".characters.CharacterListActivity" android:exported="true">
+        <activity
+            android:name=".CharacterDetailActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".characters.CharacterListActivity"
+            android:exported="true" />
+
+        <activity
+            android:name=".NavGraphActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

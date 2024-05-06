@@ -1,13 +1,11 @@
 package com.sajon.dev.rickandmorty.characters
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.airbnb.epoxy.EpoxyRecyclerView
-import com.sajon.dev.rickandmorty.MainActivity
+import com.sajon.dev.rickandmorty.CharacterDetailActivity
 import com.sajon.dev.rickandmorty.R
-import com.sajon.dev.rickandmorty.SharedViewModel
 
 class CharacterListActivity : AppCompatActivity() {
     private val epoxyController = CharacterListPagingEpoxyController(::onCharacterSelected)
@@ -37,6 +35,6 @@ class CharacterListActivity : AppCompatActivity() {
     }
 
     private fun onCharacterSelected(characterId: Int) {
-        startActivity(MainActivity.getIntent(this, characterId))
+        startActivity(CharacterDetailActivity.getIntent(this, characterId))
     }
 }
