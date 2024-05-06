@@ -1,8 +1,7 @@
-package com.sajon.dev.rickandmorty.network.response
+package com.sajon.dev.rickandmorty.domain.models
 
-data class GetCharacterByIdResponse(
-    val created: String,
-    val episode: List<String> = emptyList(),
+data class Character(
+    val episode: List<Episode> = emptyList(),
     val gender: String,
     val id: Int,
     val image: String,
@@ -11,16 +10,21 @@ data class GetCharacterByIdResponse(
     val origin: Origin,
     val species: String,
     val status: String,
-    val type: String,
-    val url: String
 ) {
     data class Location(
         val name: String,
         val url: String
     )
-    
+
     data class Origin(
         val name: String,
         val url: String
+    )
+
+    data class Episode(
+        val id: Int = 0,
+        val name: String = "",
+        val airDate: String = "",
+        val episode: String = ""
     )
 }
