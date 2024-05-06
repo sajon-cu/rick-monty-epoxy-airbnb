@@ -11,13 +11,15 @@ import com.sajon.dev.rickandmorty.epoxy.ViewBindingKotlinModel
 import com.sajon.dev.rickandmorty.network.response.GetCharacterByIdResponse
 import java.util.Locale
 
-class CharacterListPagingEpoxyController : PagedListEpoxyController<GetCharacterByIdResponse>() {
+class CharacterListPagingEpoxyController(
+    private val onCharacterSelected: (Int) -> Unit
+) : PagedListEpoxyController<GetCharacterByIdResponse>() {
     override fun buildItemModel(
         currentPosition: Int,
         item: GetCharacterByIdResponse?
     ): EpoxyModel<*> {
         return CharacterGridItemEpoxyModel(
-            item!!.image, item.name
+            item!!.image, item.name, item.id, onCharacterSelected
         ).id(item.id)
     }
 
@@ -46,11 +48,15 @@ class CharacterListPagingEpoxyController : PagedListEpoxyController<GetCharacter
 
     data class CharacterGridItemEpoxyModel(
         val imageUrl: String,
-        val name: String
+        val name: String,
+        val characterId: Int,
+        val onCharacterSelected: (Int) -> Unit
     ): ViewBindingKotlinModel<ModelCharacterListItemBinding>(R.layout.model_character_list_item) {
         override fun ModelCharacterListItemBinding.bind() {
             characterNameTextView.text = name
             Glide.with(characterImageView).load(imageUrl).into(characterImageView)
+
+            root.setOnClickListener { onCharacterSelected(characterId) }
         }
     }
 

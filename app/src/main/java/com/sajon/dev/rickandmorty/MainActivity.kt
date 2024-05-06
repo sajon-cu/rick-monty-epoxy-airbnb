@@ -1,8 +1,11 @@
 package com.sajon.dev.rickandmorty
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
@@ -39,14 +42,29 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         initRecyclerView()
         observeViewModel()
-        sharedViewModel.refreshCharacter(23)
+
+        val characterId = intent.getIntExtra(INTENT_EXTRA_CHARACTER_ID, 1)
+        sharedViewModel.refreshCharacter(characterId)
     }
 
     private fun initRecyclerView() {
         val epoxyRecyclerView = findViewById<EpoxyRecyclerView>(R.id.epoxyRecyclerView)
         epoxyRecyclerView.setControllerAndBuildModels(epoxyController)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else ->  super.onOptionsItemSelected(item)
+        }
+
     }
 
     private fun observeViewModel() {
@@ -57,6 +75,16 @@ class MainActivity : AppCompatActivity() {
             }
 
             epoxyController.characterResponse = response
+        }
+    }
+
+    companion object {
+        private const val INTENT_EXTRA_CHARACTER_ID = "character_id_extra"
+
+        fun getIntent(context: Context, characterId: Int): Intent {
+            return Intent(context, MainActivity::class.java).apply {
+                putExtra(INTENT_EXTRA_CHARACTER_ID, characterId)
+            }
         }
     }
 }

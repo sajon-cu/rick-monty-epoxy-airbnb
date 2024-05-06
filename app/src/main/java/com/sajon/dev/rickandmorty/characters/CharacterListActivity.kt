@@ -5,11 +5,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.airbnb.epoxy.EpoxyRecyclerView
+import com.sajon.dev.rickandmorty.MainActivity
 import com.sajon.dev.rickandmorty.R
 import com.sajon.dev.rickandmorty.SharedViewModel
 
 class CharacterListActivity : AppCompatActivity() {
-    val epoxyController = CharacterListPagingEpoxyController()
+    private val epoxyController = CharacterListPagingEpoxyController(::onCharacterSelected)
 
     private val characterViewModel: CharactersViewModel by lazy {
         ViewModelProvider(this)[CharactersViewModel::class.java]
@@ -33,5 +34,9 @@ class CharacterListActivity : AppCompatActivity() {
         characterViewModel.charactersPagedListLiveData.observe(this) { response ->
             epoxyController.submitList(response)
         }
+    }
+
+    private fun onCharacterSelected(characterId: Int) {
+        startActivity(MainActivity.getIntent(this, characterId))
     }
 }
