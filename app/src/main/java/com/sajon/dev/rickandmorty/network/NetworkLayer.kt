@@ -2,6 +2,7 @@ package com.sajon.dev.rickandmorty.network
 
 import okhttp3.ConnectionPool
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.security.SecureRandom
@@ -14,7 +15,12 @@ import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
 object NetworkLayer {
-    fun provideHttpClient(): OkHttpClient {
+    private fun getLoggingHttpClient(): HttpLoggingInterceptor {
+        return HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
+    }
+    private fun provideHttpClient(): OkHttpClient {
         val pool = ConnectionPool()
 
         // Create a trust manager that does not validate certificate chains
@@ -54,14 +60,14 @@ object NetworkLayer {
                 .readTimeout(30L, TimeUnit.SECONDS)
                 .writeTimeout(30L, TimeUnit.SECONDS)
                 .connectionPool(pool)
-                // .addInterceptor(httpLoginInterceptor)
+                .addInterceptor(getLoggingHttpClient())
                 .build()
         } catch(exception: Exception) {
             return OkHttpClient.Builder()
                 .readTimeout(30L, TimeUnit.SECONDS)
                 .writeTimeout(30L, TimeUnit.SECONDS)
                 .connectionPool(pool)
-                // .addInterceptor(httpLoginInterceptor)
+                .addInterceptor(getLoggingHttpClient())
                 .build()
         }
     }

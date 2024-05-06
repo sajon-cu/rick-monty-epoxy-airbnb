@@ -56,10 +56,14 @@ dependencies {
 
     // Lifecycle
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.7.0")
+
     // Retrofit
     val retrofitVersion = "2.9.0"
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
     implementation("com.squareup.retrofit2:converter-gson:$retrofitVersion")
+
+    // Networking
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
     // Moshi
     implementation("com.squareup.retrofit2:converter-moshi:$retrofitVersion")
