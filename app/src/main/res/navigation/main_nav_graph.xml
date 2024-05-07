@@ -24,6 +24,8 @@
         android:name="com.sajon.dev.rickandmorty.characters.detail.CharacterDetailFragment"
         android:label="Character Detail"
         tools:layout="@layout/activity_character_detail">
+        <deepLink app:uri="https://simplemorty.com/character/{characterId}" />
+
         <argument
             android:name="characterId"
             android:defaultValue="-1"
