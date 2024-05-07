@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/characterListFragment"
         android:name="com.sajon.dev.rickandmorty.characters.CharacterListFragment"
-        android:label="fragment_character_list"
+        android:label="Rick and Morty Character"
         tools:layout="@layout/activity_character_list">
 
         <action
@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/characterDetailFragment"
         android:name="com.sajon.dev.rickandmorty.characters.detail.CharacterDetailFragment"
-        android:label="fragment_character_detail"
+        android:label="Character Detail"
         tools:layout="@layout/activity_character_detail">
         <argument
             android:name="characterId"
