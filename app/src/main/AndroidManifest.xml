@@ -18,14 +18,6 @@
         tools:targetApi="31">
 
         <activity
-            android:name=".CharacterDetailActivity"
-            android:exported="true" />
-
-        <activity
-            android:name=".characters.CharacterListActivity"
-            android:exported="true" />
-
-        <activity
             android:name=".NavGraphActivity"
             android:exported="true">
             <intent-filter>

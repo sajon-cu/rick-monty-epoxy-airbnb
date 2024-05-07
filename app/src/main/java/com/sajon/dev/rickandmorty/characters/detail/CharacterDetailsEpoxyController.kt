@@ -1,16 +1,17 @@
-package com.sajon.dev.rickandmorty
+package com.sajon.dev.rickandmorty.characters.detail
 
 import com.airbnb.epoxy.CarouselModel_
 import com.airbnb.epoxy.EpoxyController
 import com.bumptech.glide.Glide
+import com.sajon.dev.rickandmorty.R
 import com.sajon.dev.rickandmorty.databinding.ModelCharacterDetailsDataPointBinding
 import com.sajon.dev.rickandmorty.databinding.ModelCharacterDetailsHeaderBinding
 import com.sajon.dev.rickandmorty.databinding.ModelCharacterDetailsImageBinding
-import com.sajon.dev.rickandmorty.databinding.ModelCharacterListTitleBinding
 import com.sajon.dev.rickandmorty.databinding.ModelEpisodeCarouselItemBinding
 import com.sajon.dev.rickandmorty.databinding.ModelTitleBinding
 import com.sajon.dev.rickandmorty.domain.models.Character
 import com.sajon.dev.rickandmorty.domain.models.Episode
+import com.sajon.dev.rickandmorty.epoxy.LoadingEpoxyModel
 import com.sajon.dev.rickandmorty.epoxy.ViewBindingKotlinModel
 
 class CharacterDetailsEpoxyController : EpoxyController() {
@@ -32,8 +33,8 @@ class CharacterDetailsEpoxyController : EpoxyController() {
         }
 
     override fun buildModels() {
-        if(isLoading) {
-            // Show loading model
+        if (isLoading) {
+            LoadingEpoxyModel().id("loading").addTo(this)
             return
         }
 
@@ -94,7 +95,9 @@ class CharacterDetailsEpoxyController : EpoxyController() {
         }
     }
 
-    data class ImageEpoxyModel(val imageUrl: String) : ViewBindingKotlinModel<ModelCharacterDetailsImageBinding>(R.layout.model_character_details_image) {
+    data class ImageEpoxyModel(val imageUrl: String) : ViewBindingKotlinModel<ModelCharacterDetailsImageBinding>(
+        R.layout.model_character_details_image
+    ) {
         override fun ModelCharacterDetailsImageBinding.bind() {
             // Picasso.get().load(imageUrl).into(headerImageView)
             Glide.with(headerImageView).load(imageUrl).into(headerImageView)
@@ -111,14 +114,18 @@ class CharacterDetailsEpoxyController : EpoxyController() {
         }
     }
 
-    data class EpisodeCarouselItem(val episode: Episode): ViewBindingKotlinModel<ModelEpisodeCarouselItemBinding>(R.layout.model_episode_carousel_item) {
+    data class EpisodeCarouselItem(val episode: Episode): ViewBindingKotlinModel<ModelEpisodeCarouselItemBinding>(
+        R.layout.model_episode_carousel_item
+    ) {
         override fun ModelEpisodeCarouselItemBinding.bind() {
             episodeTextView.text = episode.episode
             episodeDetailsTextView.text = "${episode.name}\n${episode.airDate}"
         }
     }
 
-    data class TitleEpoxyModel(private val title: String) : ViewBindingKotlinModel<ModelTitleBinding>(R.layout.model_title) {
+    data class TitleEpoxyModel(private val title: String) : ViewBindingKotlinModel<ModelTitleBinding>(
+        R.layout.model_title
+    ) {
         override fun ModelTitleBinding.bind() {
             titleTextView.text = title
         }
