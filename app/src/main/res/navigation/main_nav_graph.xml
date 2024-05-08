@@ -19,6 +19,22 @@
             app:popEnterAnim="@anim/slide_in_from_left"
             app:popExitAnim="@anim/slide_out_to_right" />
     </fragment>
+
+    <fragment
+        android:id="@+id/episodeListFragment"
+        android:name="com.sajon.dev.rickandmorty.episodes.EpisodeListFragment"
+        android:label="Rick and Morty Episodes"
+        tools:layout="@layout/fragment_episode_list">
+
+<!--        <action-->
+<!--            android:id="@+id/action_characterListFragment_to_characterDetailFragment"-->
+<!--            app:destination="@id/characterDetailFragment"-->
+<!--            app:enterAnim="@anim/slide_in_from_right"-->
+<!--            app:exitAnim="@anim/slide_out_to_left"-->
+<!--            app:popEnterAnim="@anim/slide_in_from_left"-->
+<!--            app:popExitAnim="@anim/slide_out_to_right" />-->
+    </fragment>
+
     <fragment
         android:id="@+id/characterDetailFragment"
         android:name="com.sajon.dev.rickandmorty.characters.detail.CharacterDetailFragment"
