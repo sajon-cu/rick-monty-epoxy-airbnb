@@ -2,4 +2,9 @@
     <string name="app_name">Rick And Morty</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="title_episodes">Episodes</string>
+    <string name="title_all_episodes">All Episodes</string>
+    <string name="title_characters">Characters</string>
+    <string name="title_all_characters">All Characters</string>
 </resources>
