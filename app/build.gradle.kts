@@ -86,6 +86,7 @@ dependencies {
     implementation ("com.airbnb.android:epoxy:$epoxyVersion")
     annotationProcessor("com.airbnb.android:epoxy-processor:$epoxyVersion")
     implementation("com.airbnb.android:epoxy-paging:5.0.0")
+    implementation("com.airbnb.android:epoxy-paging3:$epoxyVersion")
 
     // Paging
     val pagingVersion = "3.2.1"

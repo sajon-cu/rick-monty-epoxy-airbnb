@@ -11,7 +11,7 @@ object CharacterMapper {
     ): Character {
         return Character(
             episodeList = episodes.map {
-                EpisodeMapper.buildForm(it)
+                EpisodeMapper.buildFrom(it)
             },
             gender = response.gender,
             id = response.id,

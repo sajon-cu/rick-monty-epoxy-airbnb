@@ -5,27 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.airbnb.epoxy.EpoxyRecyclerView
+        android:id="@+id/epoxyRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Episodes"
-        android:textColor="@color/black"
-        android:textSize="40sp"
+        android:layout_height="match_parent"
+        android:padding="8dp"
+        app:itemSpacing="8dp"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    <!--    <com.airbnb.epoxy.EpoxyRecyclerView-->
-    <!--        android:id="@+id/epoxyRecyclerView"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="match_parent"-->
-    <!--        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"-->
-    <!--        app:spanCount="2"-->
-    <!--        android:padding="8dp"-->
-    <!--        app:itemSpacing="8dp"-->
-    <!--        tools:listitem="@layout/model_character_list_item"-->
-    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--        app:layout_constraintEnd_toEndOf="parent"-->
-    <!--        app:layout_constraintStart_toStartOf="parent"-->
-    <!--        app:layout_constraintTop_toTopOf="parent" />-->
+        app:layout_constraintTop_toTopOf="parent"
+        app:spanCount="2"
+        tools:listitem="@layout/model_character_list_item" />
 </androidx.constraintlayout.widget.ConstraintLayout>
