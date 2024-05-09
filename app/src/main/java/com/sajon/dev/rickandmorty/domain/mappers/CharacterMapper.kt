@@ -7,7 +7,7 @@ import com.sajon.dev.rickandmorty.network.response.GetEpisodeByIdResponse
 object CharacterMapper {
     fun buildFrom(
         response: GetCharacterByIdResponse,
-        episodes: List<GetEpisodeByIdResponse>
+        episodes: List<GetEpisodeByIdResponse> = emptyList()
     ): Character {
         return Character(
             episodeList = episodes.map {

@@ -26,13 +26,16 @@
         android:label="Rick and Morty Episodes"
         tools:layout="@layout/fragment_episode_list">
 
-<!--        <action-->
-<!--            android:id="@+id/action_characterListFragment_to_characterDetailFragment"-->
-<!--            app:destination="@id/characterDetailFragment"-->
-<!--            app:enterAnim="@anim/slide_in_from_right"-->
-<!--            app:exitAnim="@anim/slide_out_to_left"-->
-<!--            app:popEnterAnim="@anim/slide_in_from_left"-->
-<!--            app:popExitAnim="@anim/slide_out_to_right" />-->
+        <!--        <action-->
+        <!--            android:id="@+id/action_characterListFragment_to_characterDetailFragment"-->
+        <!--            app:destination="@id/characterDetailFragment"-->
+        <!--            app:enterAnim="@anim/slide_in_from_right"-->
+        <!--            app:exitAnim="@anim/slide_out_to_left"-->
+        <!--            app:popEnterAnim="@anim/slide_in_from_left"-->
+        <!--            app:popExitAnim="@anim/slide_out_to_right" />-->
+        <action
+            android:id="@+id/action_episodeListFragment_to_episodeDetailBottomSheetFragment"
+            app:destination="@id/episodeDetailBottomSheetFragment" />
     </fragment>
 
     <fragment
@@ -47,4 +50,14 @@
             android:defaultValue="-1"
             app:argType="integer" />
     </fragment>
+
+    <dialog
+        android:id="@+id/episodeDetailBottomSheetFragment"
+        android:name="com.sajon.dev.rickandmorty.episodes.detail.EpisodeDetailBottomSheetFragment"
+        android:label="EpisodeDetailBottomSheetFragment">
+        <argument
+            android:name="episodeId"
+            android:defaultValue="-1"
+            app:argType="integer" />
+    </dialog>
 </navigation>

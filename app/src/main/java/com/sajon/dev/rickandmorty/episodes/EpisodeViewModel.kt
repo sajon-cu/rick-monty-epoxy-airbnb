@@ -11,7 +11,7 @@ import com.sajon.dev.rickandmorty.Constants.PREFETCH_DISTANCE
 import kotlinx.coroutines.flow.map
 
 class EpisodeViewModel : ViewModel() {
-    private val episodesRepository: EpisodesRepository = EpisodesRepository()
+    private val episodeRepository: EpisodeRepository = EpisodeRepository()
     val flow = Pager(
         // Configure how data is loaded by passing additional properties to
         // PagingConfig, such as prefetchDistance.
