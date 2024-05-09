@@ -4,6 +4,7 @@ import com.airbnb.epoxy.EpoxyModel
 import com.airbnb.epoxy.paging3.PagingDataEpoxyController
 import com.sajon.dev.rickandmorty.R
 import com.sajon.dev.rickandmorty.databinding.ModelEpisodeListItemBinding
+import com.sajon.dev.rickandmorty.databinding.ModelEpisodeListTitleBinding
 import com.sajon.dev.rickandmorty.domain.models.Episode
 import com.sajon.dev.rickandmorty.epoxy.ViewBindingKotlinModel
 
@@ -12,29 +13,22 @@ class EpisodeListEpoxyController(
 ) : PagingDataEpoxyController<EpisodesUiModel>() {
 
     override fun buildItemModel(currentPosition: Int, item: EpisodesUiModel?): EpoxyModel<*> {
-        val episode = (item as EpisodesUiModel.Item).episode
-        return EpisodeListItemEpoxyModel(
-            episode = episode,
-            onClick = { episodeId ->
-                onEpisodeClicked(episodeId)
+        return when (item!!) {
+            is EpisodesUiModel.Item -> {
+                val episode = (item as EpisodesUiModel.Item).episode
+                EpisodeListItemEpoxyModel(
+                    episode = episode,
+                    onClick = { episodeId ->
+                        onEpisodeClicked(episodeId)
+                    }
+                ).id("episode_${episode.id}")
             }
-        ).id("episode_${episode.id}")
-//        return when (item!!) {
-//            is EpisodesUiModel.Item -> {
-//                val episode = (item as EpisodesUiModel.Item).episode
-//                EpisodeListItemEpoxyModel(
-//                    episode = episode,
-//                    onClick = { episodeId ->
-//                        onEpisodeClicked(episodeId)
-//                    }
-//                ).id("episode_${episode.id}")
-//            }
 
-//            is EpisodesUiModel.Header -> {
-//                val headerText = (item as EpisodesUiModel.Header).text
-//                EpisodeListTitleEpoxyModel(headerText).id("header_$headerText")
-//            }
-//        }
+            is EpisodesUiModel.Header -> {
+                val headerText = (item as EpisodesUiModel.Header).text
+                EpisodeListTitleEpoxyModel(headerText).id("header_$headerText")
+            }
+        }
     }
 
     data class EpisodeListItemEpoxyModel(
@@ -51,12 +45,12 @@ class EpisodeListEpoxyController(
         }
     }
 
-//    data class EpisodeListTitleEpoxyModel(
-//        val title: String
-//    ) : ViewBindingKotlinModel<ModelEpisodeListTitleBinding>(R.layout.model_episode_list_title) {
-//
-//        override fun ModelEpisodeListTitleBinding.bind() {
-//            textView.text = title
-//        }
-//    }
+    data class EpisodeListTitleEpoxyModel(
+        val title: String
+    ) : ViewBindingKotlinModel<ModelEpisodeListTitleBinding>(R.layout.model_episode_list_title) {
+
+        override fun ModelEpisodeListTitleBinding.bind() {
+            titleTextView.text = title
+        }
+    }
 }
