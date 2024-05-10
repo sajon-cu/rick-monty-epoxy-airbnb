@@ -32,10 +32,9 @@ class EpisodeListFragment : Fragment(R.layout.fragment_episode_list) {
         super.onViewCreated(view, savedInstanceState)
 
         val epoxyController = EpisodeListEpoxyController { episodeClickedId ->
-            val action = EpisodeListFragmentDirections.actionEpisodeListFragmentToEpisodeDetailBottomSheetFragment(episodeClickedId)
-//            val navDirections = NavGraphDirections.actionGlobalToEpisodeDetailBottomSheetFragment(
-//                episodeId = episodeClickedId
-//            )
+            // val action = EpisodeListFragmentDirections.actionEpisodeListFragmentToEpisodeDetailBottomSheetFragment(episodeClickedId)
+            val action = EpisodeListFragmentDirections.actionGlobalToEpisodeDetailBottomSheetFragment(episodeClickedId)
+            // val navDirections = NavGraphDirections.actionGlobalToEpisodeDetailBottomSheetFragment(episodeId = episodeClickedId)
             findNavController().navigate(action)
         }
 

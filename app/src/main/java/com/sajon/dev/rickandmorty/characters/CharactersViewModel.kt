@@ -16,5 +16,6 @@ class CharactersViewModel : ViewModel() {
         .build()
 
     private val dataSourceFactory = CharacterDataSourceFactory(viewModelScope, characterRepository)
-    val charactersPagedListLiveData: LiveData<PagedList<GetCharacterByIdResponse>> = LivePagedListBuilder(dataSourceFactory, pageListConfig).build()
+    val charactersPagedListLiveData: LiveData<PagedList<GetCharacterByIdResponse>> =
+        LivePagedListBuilder(dataSourceFactory, pageListConfig).build()
 }

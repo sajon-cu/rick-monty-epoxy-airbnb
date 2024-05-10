@@ -14,7 +14,9 @@ import com.sajon.dev.rickandmorty.domain.models.Episode
 import com.sajon.dev.rickandmorty.epoxy.LoadingEpoxyModel
 import com.sajon.dev.rickandmorty.epoxy.ViewBindingKotlinModel
 
-class CharacterDetailsEpoxyController : EpoxyController() {
+class CharacterDetailsEpoxyController(
+    private val onEpisodeClicked: (Int) -> Unit
+) : EpoxyController() {
     var isLoading: Boolean = true
         set(value) {
             field = value
@@ -56,7 +58,7 @@ class CharacterDetailsEpoxyController : EpoxyController() {
         // Episode Carousel
         if(character!!.episodeList.isNotEmpty()) {
             val episodeModels = character!!.episodeList.map {episode ->
-                EpisodeCarouselItem(episode).id(episode.id)
+                EpisodeCarouselItem(episode, onEpisodeClicked).id(episode.id)
             }
 
             TitleEpoxyModel(title = "Episodes").id("title_episodes").addTo(this)
@@ -114,12 +116,17 @@ class CharacterDetailsEpoxyController : EpoxyController() {
         }
     }
 
-    data class EpisodeCarouselItem(val episode: Episode): ViewBindingKotlinModel<ModelEpisodeCarouselItemBinding>(
+    data class EpisodeCarouselItem(
+        val episode: Episode,
+        private val onEpisodeClicked: (Int) -> Unit
+    ): ViewBindingKotlinModel<ModelEpisodeCarouselItemBinding>(
         R.layout.model_episode_carousel_item
     ) {
         override fun ModelEpisodeCarouselItemBinding.bind() {
             episodeTextView.text = episode.getFormattedSeasonTruncated()
             episodeDetailsTextView.text = "${episode.name}\n${episode.airDate}"
+
+            root.setOnClickListener { onEpisodeClicked(episode.id) }
         }
     }
 

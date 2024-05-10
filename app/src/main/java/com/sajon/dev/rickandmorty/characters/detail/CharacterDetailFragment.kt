@@ -6,15 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.airbnb.epoxy.EpoxyRecyclerView
+import com.sajon.dev.rickandmorty.MainNavGraphDirections
 import com.sajon.dev.rickandmorty.R
-import com.sajon.dev.rickandmorty.SharedViewModel
 
 class CharacterDetailFragment : Fragment() {
-    private val sharedViewModel: SharedViewModel by lazy { ViewModelProvider(this)[SharedViewModel::class.java] }
-    private val epoxyController = CharacterDetailsEpoxyController()
+    private val viewModel: CharacterDetailViewModel by viewModels()
+    private val epoxyController = CharacterDetailsEpoxyController(::onEpisodeClicked)
     private val safeArgs: CharacterDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -30,7 +31,7 @@ class CharacterDetailFragment : Fragment() {
         observeViewModel()
 
         val characterId = safeArgs.characterId
-        sharedViewModel.refreshCharacter(characterId)
+        viewModel.fetchCharacter(characterId)
     }
 
     private fun initRecyclerView(view: View) {
@@ -39,7 +40,7 @@ class CharacterDetailFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        sharedViewModel.characterByIdResponse.observe(viewLifecycleOwner) { character ->
+        viewModel.characterByIdLiveData.observe(viewLifecycleOwner) { character ->
             if(character == null) {
                 Toast.makeText(requireContext(), "Unsuccessful network call!!", Toast.LENGTH_LONG).show()
                 return@observe
@@ -47,5 +48,10 @@ class CharacterDetailFragment : Fragment() {
 
             epoxyController.character = character
         }
+    }
+
+    private fun onEpisodeClicked(episodeId: Int) {
+        val navDirections = MainNavGraphDirections.actionGlobalToEpisodeDetailBottomSheetFragment(episodeId)
+        findNavController().navigate(navDirections)
     }
 }
